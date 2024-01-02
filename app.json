@@ -1,0 +1,7 @@
+{
+  "name": "ProjectIIIFrontend",
+  "displayName": "ProjectIIIFrontend",
+  "packagerOpts": {
+    "config": "metro.config.js"
+  }
+}
