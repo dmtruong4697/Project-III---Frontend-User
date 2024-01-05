@@ -11,7 +11,7 @@ function* login(action) {
     //const navigate = useNavigate();
   try {
     const { email, password } = action.payload;
-    const response = yield call(axios.post, `${backend}/user-login`, {
+    const response = yield call(axios.post, `${BackendUrl.backendUrl}/user-login`, {
       email,
       password,
     });

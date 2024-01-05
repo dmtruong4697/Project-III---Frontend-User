@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -61,12 +61,22 @@ function chuyenDoiDinhDangThoiGian(inputTime) {
 
   return (
     <View style={styles.container}>
-      <Text
+
+        <Image 
+            source={{uri: currentTicket.eventImage}}
+            style={{
+              width: '100%',
+              height: 150,
+              maxHeight: 150,
+              //marginTop: 20,
+            }}
+        />
+      {/* <Text
         style={{
           fontSize: 16,
-          marginTop: 20,
+          marginTop: 40,
         }}
-      >{currentPublisher.userName}</Text>
+      >{currentPublisher.userName}</Text> */}
 
       <Text
         style={{
@@ -130,10 +140,10 @@ function chuyenDoiDinhDangThoiGian(inputTime) {
         style={{
           fontSize: 18,
           marginTop: 20,
-          //fontWeight: 'bold',
-          //color: AppColor.themeColor,
+          fontWeight: 'bold',
+          color: AppColor.themeColor,
         }}
-      >Status: AVAILABLE</Text>
+      >Status: {currentTicket.status}</Text>
     </View>
   )
 }

@@ -50,11 +50,36 @@ const EventDetailScreen = () => {
     }
   }, []);
 
+  function chuyenDoiDinhDangThoiGian(inputTime) {
+    // Chuyển đổi chuỗi thời gian đầu vào thành đối tượng Date
+    var thoiGian = new Date(inputTime);
+  
+    // Lấy thông tin giờ, phút, ngày, tháng và năm
+    var gio = thoiGian.getUTCHours();
+    var phut = thoiGian.getUTCMinutes();
+    var ngay = thoiGian.getUTCDate();
+    var thang = thoiGian.getUTCMonth() + 1; // Tháng bắt đầu từ 0
+    var nam = thoiGian.getUTCFullYear();
+  
+    // Tạo chuỗi định dạng mới
+    var dinhDangMoi = gio.toString().padStart(2, '0') + ':' + phut.toString().padStart(2, '0') +
+        ' - ' + ngay.toString().padStart(2, '0') + '/' + thang.toString().padStart(2, '0') + '/' + nam;
+  
+    return dinhDangMoi;
+  }
+
   return (
     <View style={styles.container}>
         <ScrollView>
             <View style={styles.coverImage}>
-
+                <Image 
+                    source={{uri: currentEvent.imageUrl}}
+                    style={{
+                        //height: 50,
+                        width: 'auto',
+                        height: '100%'
+                    }}
+                />
             </View>
 
             <View style={styles.content}>
@@ -72,7 +97,7 @@ const EventDetailScreen = () => {
                         style={{
                             fontSize: 16,
                         }}
-                    >{currentEvent.startTime}</Text>
+                    >{chuyenDoiDinhDangThoiGian(currentEvent.startTime)}</Text>
                 </View>
 
                 <View style={styles.location}>
@@ -80,6 +105,7 @@ const EventDetailScreen = () => {
                     <Text
                         style={{
                             fontSize: 16,
+                            //marginRight: 10,
                         }}
                     >{currentEvent.location}</Text>
                 </View>

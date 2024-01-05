@@ -4,6 +4,7 @@ import MyTicketScreen from '../screens/homeScreens/ticketScreens/MyTicketScreen'
 import ProfileScreen from '../screens/homeScreens/profileScreens/ProfileScreen';
 import { AppColor } from '../constants/AppColor';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import MyTicketNavigator from './MyTicketNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -35,10 +36,18 @@ function HomeNavigator() {
         }}
       />
       <Tab.Screen 
-        name="MyTicket" 
-        component={MyTicketScreen} 
+        name="MyTicketNavigator" 
+        component={MyTicketNavigator} 
         options={{
-          headerShown: false,
+          //headerShown: false,
+          headerTitle: 'My Ticket',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontSize: 16,
+          },
+          headerStyle: {
+            height: 40,
+          },
           tabBarIcon: ({focused}) => {return <Image style={{height: 28, width: 28, }} source= {require('../../assets/icons/ticket/ticket.png')}/>}
         }}
       />

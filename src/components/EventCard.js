@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
@@ -10,19 +10,46 @@ const EventCard = (props) => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
+    function chuyenDoiDinhDangThoiGian(inputTime) {
+        // Chuyển đổi chuỗi thời gian đầu vào thành đối tượng Date
+        var thoiGian = new Date(inputTime);
+      
+        // Lấy thông tin giờ, phút, ngày, tháng và năm
+        var gio = thoiGian.getUTCHours();
+        var phut = thoiGian.getUTCMinutes();
+        var ngay = thoiGian.getUTCDate();
+        var thang = thoiGian.getUTCMonth() + 1; // Tháng bắt đầu từ 0
+        var nam = thoiGian.getUTCFullYear();
+      
+        // Tạo chuỗi định dạng mới
+        var dinhDangMoi = gio.toString().padStart(2, '0') + ':' + phut.toString().padStart(2, '0') +
+            ' - ' + ngay.toString().padStart(2, '0') + '/' + thang.toString().padStart(2, '0') + '/' + nam;
+      
+        return dinhDangMoi;
+      }
+
   return (
-    <TouchableOpacity 
+    <View 
         style={styles.container}
+    >
+      <View style={styles.image}>
+        <Image 
+            source={{uri: eventDetail.imageUrl}}
+            style={{
+                //height: 50,
+                width: 'auto',
+                height: '100%'
+            }}
+        />
+      </View>
+
+      <TouchableOpacity 
+        style={styles.content}
         onPress={() => {
             dispatch(setCurrentEvent(eventDetail));
             navigation.navigate("EventDetail")
         }}
     >
-      <View style={styles.image}>
-
-      </View>
-
-      <View style={styles.content}>
         <Text 
             style={{
                 fontSize: 14,
@@ -35,7 +62,7 @@ const EventCard = (props) => {
                 fontSize: 12,
                 //fontWeight: 'bold',
             }}
-        >{eventDetail.startTime}</Text>
+        >{chuyenDoiDinhDangThoiGian(eventDetail.startTime)}</Text>
 
         <Text
             style={{
@@ -43,12 +70,12 @@ const EventCard = (props) => {
                 fontWeight: '600',
             }}
         >{eventDetail.location}</Text>
-      </View>
+      </TouchableOpacity>
 
       <View style={styles.location}>
 
       </View>
-    </TouchableOpacity>
+    </View>
   )
 }
 

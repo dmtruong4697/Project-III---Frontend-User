@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { BackendUrl } from '../../../constants/BackendUrl';
 import axios from 'axios';
 
-const MyTicketScreen = () => {
+const UsedTicketScreen = () => {
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -27,7 +27,7 @@ const MyTicketScreen = () => {
       });
 
       setTicketList(response.data.user.tickets);
-      return response.data.user.tickets.reverse();
+      return response.data.user.tickets;
       console.log(ticketList);
     } catch (error) {
       console.error("Error during getting profile detail:", error.response.data);
@@ -61,7 +61,7 @@ const MyTicketScreen = () => {
         >Vé đã mua:</Text> */}
 
         <FlatList
-          data={ticketList.filter((item) => item.status === "AVAILABLE")}
+          data={ticketList.filter((item) => item.status !== "AVAILABLE")}
           renderItem={({ item }) => <MyTicketCard ticketDetail={item}/>}
           keyExtractor={(item) => item._id}
           refreshControl={
@@ -75,7 +75,7 @@ const MyTicketScreen = () => {
   )
 }
 
-export default MyTicketScreen
+export default UsedTicketScreen
 
 const styles = StyleSheet.create({
   container: {

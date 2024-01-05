@@ -12,11 +12,11 @@ const AllEventScreen = () => {
   const [eventsData, setEventsData] = useState([]);
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.currentUser);
-  const backend = 'http://192.168.1.152:3000/api';
+  //const backend = 'http://192.168.1.152:3000/api';
 
   const getAllEvent = async () => {
     try {
-      const response = await axios.post(`${backend}/all-event`,
+      const response = await axios.post(`${BackendUrl.backendUrl}/all-event`,
       // {
       //   headers: {
       //     Authorization: currentUser.token,

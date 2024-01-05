@@ -41,7 +41,7 @@ const SuccessScreen = () => {
         <TouchableOpacity 
             style={styles.button}
             onPress={() => {
-                navigation.navigate("MyTicket");
+                navigation.navigate("MyTicketNavigator");
             }}
         >
             <Text style={styles.buttonText}>My Ticket</Text>

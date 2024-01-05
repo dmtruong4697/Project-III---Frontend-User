@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,19 +14,33 @@ const MyTicketCard = (props) => {
     const currentTicket = useSelector((state) => state.ticket.currentTicket);
 
   return (
-    <TouchableOpacity 
+    <View 
         style={styles.container}
+        // onPress={() => {
+        //     dispatch(setCurrentTicket(ticketDetail));
+        //     //console.log(currentTicket);
+        //     navigation.navigate("TicketDetail")
+        // }}
+    >
+      <View style={styles.image}>
+        <Image 
+            source={{uri: ticketDetail.eventImage}}
+            style={{
+                //height: 50,
+                width: 'auto',
+                height: '100%'
+            }}
+        />
+      </View>
+
+      <TouchableOpacity 
+        style={styles.content}
         onPress={() => {
             dispatch(setCurrentTicket(ticketDetail));
-            console.log(currentTicket);
+            //console.log(currentTicket);
             navigation.navigate("TicketDetail")
         }}
     >
-      <View style={styles.image}>
-
-      </View>
-
-      <View style={styles.content}>
         <View style={{flex: 1,}}>
             <Text 
                 style={{
@@ -50,18 +64,18 @@ const MyTicketCard = (props) => {
             >ID: {ticketDetail.id}</Text>
         </View>
 
-        <View style={styles.tag}>
+        <View style={[styles.tag, {borderColor: (ticketDetail.status == "AVAILABLE")? AppColor.themeColor:'#ff3333',}]}>
             <Text
                 style={{
-                    color: AppColor.themeColor,
+                    color: (ticketDetail.status == "AVAILABLE")? AppColor.themeColor: '#ff3333',
                     alignSelf: 'center',
                     fontWeight: 'bold',
                 }}
-            >AVAILABLE</Text>
+            >{ticketDetail.status}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
 
-    </TouchableOpacity>
+    </View>
   )
 }
 
@@ -72,7 +86,7 @@ const styles = StyleSheet.create({
         width: '96%',
         height: 'auto',
         alignSelf: 'center',
-        marginBottom: 10,
+        marginBottom: 20,
         padding: 5,
         borderRadius: 3,
         borderWidth: 1.5,
@@ -91,20 +105,21 @@ const styles = StyleSheet.create({
     content: {
         //backgroundColor: 'pink',
         flexDirection: 'row',
-        height: 50,
+        maxHeight: 100,
     },
 
     tag: {
         //backgroundColor: 'yellow',
-        height: '70%',
+        height: 35,
         padding: 5,
         justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center',
-        alignSelf: 'center',
+        //alignSelf: 'center',
         marginRight: 5,
+        marginLeft: 5,
         borderWidth: 1.8,
         borderRadius: 5,
-        borderColor: AppColor.themeColor,
+        //borderColor: (ticketDetail.status == "AVAILABLE")? AppColor.themeColor:'red',
     },
 })
