@@ -3,6 +3,8 @@ import React, {useState, useEffect} from 'react'
 import { AppColor } from '../../constants/AppColor'
 import { useNavigation } from '@react-navigation/native'
 import { Button, Layout, Text, Input, Icon } from '@ui-kitten/components';
+import axios from 'axios';
+import { BackendUrl } from '../../constants/BackendUrl';
 
 const SignUpScreen = () => {
 
@@ -22,6 +24,27 @@ const SignUpScreen = () => {
 
   const [secureEntry, setSecureEntry] = useState(true);
   const [secureConfirmEntry, setSecureConfirmEntry] = useState(true);
+
+  const signUp = async () => {
+    try {
+      const response = await axios.post(`${BackendUrl.backendUrl}/user-signup`,
+      {
+        userName: userName,
+        email: email,
+        password: password,
+        phoneNumber: phoneNumber,
+        avaterImage: "example.com",
+      }
+      );
+
+      if (response.status == 201) {
+        console.log(response.data.message);
+        navigation.navigate("Login");
+      } 
+    } catch (error) {
+      console.error("Error during signup:", error.response);
+    }
+};
   
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -282,7 +305,9 @@ const SignUpScreen = () => {
               width: 300,
               marginTop: 40,
             }}
-            onPress={() => console.log("tao tai khoan")}
+            onPress={() => {
+              signUp();
+            }}
           >CREATE ACCOUNT</Button>
       </View>
 
